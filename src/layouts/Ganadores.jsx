@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useCounter } from '../Hooks/useCounter'
 import { Resultados } from './Resultados';
 
@@ -6,10 +6,11 @@ import { Resultados } from './Resultados';
 export const Ganadores = () => {
     
     const {counter,increment,decrement,reset} = useCounter(1);
-    let select = document.getElementById('selectorPerticipantes');
-    const ParticipantesValue = () => {
-        console.log(select);
-    }
+    const [participantes, setParticipantes] = useState(30);
+   
+    const handleSelectChange = (event) => {
+        setParticipantes(parseInt(event.target.value));
+    };
     
   return (
     <>
@@ -28,7 +29,7 @@ export const Ganadores = () => {
         
         <h3>Participantes: </h3>
         <div className="selecPerticipantes">
-         <select name="participantes" id="selectorPerticipantes" >
+         <select name="participantes" id="selectorPerticipantes" onChange={handleSelectChange}>
             <option value="30">30</option>
             <option value="40">40</option>
             <option value="50">50</option>
@@ -36,14 +37,12 @@ export const Ganadores = () => {
             <option value="70">70</option>
             <option value="80">80</option>
             <option value="90">90</option>
+            <option value="99">99</option>
             <option value="100">100</option>
          </select>
         </div>
         <br />
-         <button onClick={ParticipantesValue()}>
-            Jugar
-         </button>
-        <Resultados Ganadores={counter} />
+        <Resultados NGanadores={counter} Participantes={participantes}/>
     </div>
     </>
   )
